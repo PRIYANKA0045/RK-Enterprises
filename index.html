@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RK Enterprises</title>
+    <!-- Adding premium fonts for a highly sophisticated look -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* --- Premium Wooden Theme Variables --- */
+        :root {
+            --primary-bg: #1E120D;    /* Deep dark wood */
+            --secondary-bg: #2D1A11;  /* Rich mahogany */
+            --text-main: #F4E4D4;     /* Cream/warm white for contrast */
+            --text-muted: #C1A58D;    /* Soft tan */
+            --accent-color: #D4AF37;  /* Metallic Gold */
+            --shadow: 0 8px 20px rgba(0,0,0,0.6);
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Global Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--secondary-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Header & Top Contact --- */
+        .top-bar {
+            background-color: #0F0906; /* Almost black wood */
+            color: var(--accent-color);
+            text-align: right;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .top-bar a {
+            color: var(--accent-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* --- Immersive Premium Header --- */
+        header {
+            position: relative;
+            /* Rich wood background image with a dark gradient overlay */
+            background: linear-gradient(rgba(30, 18, 13, 0.85), rgba(20, 10, 5, 0.95)), 
+                        url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            padding: 100px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-color);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        /* Inner gold decorative border line */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            /* clamp() ensures smooth scaling on mobile vs desktop */
+            font-size: clamp(2.5rem, 8vw, 5.5rem); 
+            letter-spacing: 6px;
+            font-weight: 900;
+            text-transform: uppercase;
+            /* Premium Metallic Gold Gradient on Text */
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* drop-shadow works better than text-shadow for background-clip text */
+            filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.8));
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-main);
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            letter-spacing: 3px;
+            font-style: italic;
+            opacity: 0.9;
+            text-shadow: 0px 4px 10px rgba(0,0,0,0.8);
+        }
+
+        .header-subtitle::before, .header-subtitle::after {
+            content: '♦';
+            color: var(--accent-color);
+            margin: 0 15px;
+            font-size: 0.8em;
+            vertical-align: middle;
+        }
+
+        /* --- Services / Categories Section --- */
+        .section-container {
+            max-width: 1200px;
+            margin: 60px auto 50px;
+            padding: 0 20px;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+        }
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-category {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--accent-color);
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+        .btn-category:hover, .btn-category.active {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- Square Image Subcategories --- */
+        .subcategories {
+            display: none; 
+            margin-top: 50px;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .subcategory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+        
+        /* The Square Button Container */
+        .square-btn {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            border: 3px solid transparent;
+            transition: var(--transition);
+            background-color: var(--primary-bg);
+        }
+        
+        .square-btn:hover, .square-btn.active {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(212, 175, 55, 0.2);
+        }
+
+        .square-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            opacity: 0.85; 
+        }
+
+        .square-btn:hover img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .square-btn .btn-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); 
+            color: var(--accent-color);
+            text-align: center;
+            padding: 20px 5px 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* --- Samples Section --- */
+        #samples-section {
+            display: none; 
+            margin-top: 60px;
+            animation: fadeIn 0.6s ease;
+            background: var(--primary-bg);
+            padding: 50px 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .samples-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel', serif;
+        }
+
+        /* --- Main Visitor Options (Cards) --- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .card {
+            background: var(--secondary-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            text-align: center;
+            padding: 30px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        .card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        .card p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #3E2315;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .design-link-card {
+            display: block;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: var(--primary-bg);
+            transition: var(--transition);
+        }
+        .design-link-card h4 {
+            color: var(--accent-color);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        .design-link-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+            background: #25160E;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #0F0906;
+            color: var(--text-main);
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 60px;
+            border-top: 3px solid var(--accent-color);
+        }
+        footer h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        .whatsapp-btn {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 6px 12px rgba(37, 211, 102, 0.2);
+            transition: var(--transition);
+        }
+        .whatsapp-btn:hover {
+            background-color: #1ebe57;
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(37, 211, 102, 0.4);
+        }
+        
+        /* Mobile specific adjustments */
+        @media (max-width: 600px) {
+            /* Shrink the header text significantly on phones */
+            header h1 {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+                margin-bottom: 10px;
+            }
+            .header-subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+            .header-subtitle::before, .header-subtitle::after {
+                margin: 0 8px;
+            }
+            header {
+                padding: 60px 15px; /* Reduce header padding on mobile */
+            }
+            #samples-section {
+                padding: 30px 20px;
+            }
+            .samples-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Contact -->
+    <div class="top-bar">
+        <a href="https://wa.me/9594414276" target="_blank">💬 Contact Us on WhatsApp</a>
+    </div>
+
+    <!-- Enhanced Premium Header -->
+    <header>
+        <h1>RK Enterprises</h1>
+        <p class="header-subtitle">Premium Interior & Contracting Solutions</p>
+    </header>
+
+    <div class="section-container">
+        <h2 class="section-title">Select Our Services</h2>
+        
+        <!-- Main Categories -->
+        <div class="category-buttons">
+            <button class="btn-category" onclick="showCategory('furniture', this)">Furniture Work</button>
+            <button class="btn-category" onclick="showCategory('painting', this)">Painting Work</button>
+            <button class="btn-category" onclick="showCategory('ceiling', this)">Ceiling Work</button>
+        </div>
+
+        <!-- Furniture Subcategories (Includes Doors) -->
+        <div id="furniture" class="subcategories">
+            <div class="subcategory-grid">
+                <div class="square-btn" onclick="showSamples('Wardrobe', this)">
+                    <img src="https://i.pinimg.com/736x/7a/bb/03/7abb038310a0c5ff98bef35c2f0272e8.jpg" alt="Wardrobe">
+                    <div class="btn-title">Wardrobe</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('TV Unit', this)">
+                    <img src="https://i.pinimg.com/736x/f8/af/54/f8af548beb0e4ddc48e9927120c804e4.jpg" alt="TV Unit">
+                    <div class="btn-title">TV Unit</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('Bed', this)">
+                    <img src="https://i.pinimg.com/736x/74/f6/e5/74f6e5902cd846b1bcb1c41a1a1eab75.jpg" alt="Bed">
+                    <div class="btn-title">Bed</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('Sofa', this)">
+                    <img src="https://i.pinimg.com/736x/42/56/06/425606a487e042fcc859b7c19de8dce9.jpg" alt="Sofa">
+                    <div class="btn-title">Sofa</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('Kitchen', this)">
+                    <img src="https://i.pinimg.com/736x/bb/11/c3/bb11c301abf5975e4aa97ff441060888.jpg" alt="Kitchen">
+                    <div class="btn-title">Kitchen</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('Dressing', this)">
+                    <img src="https://i.pinimg.com/736x/fa/3c/83/fa3c83f5fe13838206c5a5a81a39bdee.jpg" alt="Dressing">
+                    <div class="btn-title">Dressing</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('Windows', this)">
+                    <img src="https://i.pinimg.com/1200x/75/2f/27/752f27e748c6652fd94bc931badc83d2.jpg" alt="Windows">
+                    <div class="btn-title">Windows</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('Temple', this)">
+                    <img src="https://i.pinimg.com/736x/f7/d9/82/f7d9827b676e00d6ca66a8771db14a3f.jpg" alt="Temple">
+                    <div class="btn-title">Temple</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('Study Table', this)">
+                    <img src="https://i.pinimg.com/1200x/1f/58/c4/1f58c467104a9089cc071ceb70193885.jpg" alt="Study Table">
+                    <div class="btn-title">Study Table</div>
+                </div>
+                <!-- Door Subcategories -->
+                <div class="square-btn" onclick="showSamples('Safety Door', this)">
+                    <img src="https://i.pinimg.com/1200x/11/20/fe/1120fe3b881167979c011786c49e45d8.jpg" alt="Safety Door">
+                    <div class="btn-title">Safety Door</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Painting Subcategories -->
+        <div id="painting" class="subcategories">
+            <div class="subcategory-grid">
+                <div class="square-btn" onclick="showSamples('Interior Painting', this)">
+                    <img src="https://i.pinimg.com/736x/bd/74/6d/bd746ddf771b47152a434d21d2c278fc.jpg" alt="Interior Painting">
+                    <div class="btn-title">Interior Painting</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('Exterior Painting', this)">
+                    <img src="https://i.pinimg.com/736x/ce/1d/ae/ce1dae9f625f1d3f3efad2f13e6d9b2c.jpg" alt="Exterior Painting">
+                    <div class="btn-title">Exterior Painting</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ceiling Subcategories -->
+        <div id="ceiling" class="subcategories">
+            <div class="subcategory-grid">
+                <div class="square-btn" onclick="showSamples('PVC Ceiling', this)">
+                    <img src="https://i.pinimg.com/736x/c2/96/d0/c296d0c4aca8f1d3f8cde70a0e564cc0.jpg" alt="PVC Ceiling">
+                    <div class="btn-title">PVC Ceiling</div>
+                </div>
+                <div class="square-btn" onclick="showSamples('False Ceiling', this)">
+                    <img src="https://i.pinimg.com/1200x/d3/9c/a9/d39ca998d998b7b6e096e620e848ef04.jpg" alt="False Ceiling">
+                    <div class="btn-title">False Ceiling</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAMPLES SECTION (Hidden until a square button is clicked) -->
+        <div id="samples-section">
+            <h2 class="samples-title" id="dynamic-sample-title">Showing designs for: <span>Item</span></h2>
+            
+            <div class="options-grid">
+                
+                <!-- What We Have Done (Google Drive Link) -->
+                <div class="card">
+                    <h3>What We Have Done</h3>
+                    <p id="done-desc">Click below to view the gallery of our completed projects.</p>
+                    
+                    <!-- DYNAMIC DRIVE LINK -->
+                    <a href="#" class="design-link-card" id="drive-link" target="_blank">
+                        <div class="image-placeholder" style="height: 180px; border: none; padding: 0;" id="drive-img-preview">
+                            <!-- Image gets injected here dynamically -->
+                        </div>
+                        <h4 id="drive-link-text">View completed projects</h4>
+                    </a>
+                </div>
+
+                <!-- Search for More Designs (Google Images Link) -->
+                <div class="card">
+                    <h3>Search For More Designs</h3>
+                    <p>Click below to explore more premium designs for reference on Google.</p>
+                    
+                    <!-- DYNAMIC GOOGLE SEARCH LINK -->
+                    <a href="#" class="design-link-card" id="design-link" target="_blank">
+                        <div class="image-placeholder" style="height: 180px; border: none; padding: 0;" id="design-img-preview">
+                            <!-- Image gets injected here dynamically -->
+                        </div>
+                        <h4 id="design-link-text">Explore more designs</h4>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <h2>Get In Touch</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Ready to transform your space? Let's discuss your project.</p>
+        
+        <!-- NEW ADDITIONS -->
+        <p style="color: var(--text-main); margin-top: 15px; font-size: 1.05rem;">
+            📍 Address: Ghansoli, Navi Mumbai
+        </p>
+        <p style="color: var(--accent-color); font-style: italic; margin-top: 5px; margin-bottom: 20px;">
+            Working in this field since 2000
+        </p>
+        
+        <a href="https://wa.me/9594414276" target="_blank" class="whatsapp-btn">
+            Chat with us on WhatsApp
+        </a>
+    </footer>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+        // Dictionary for mapping subcategories to a high-quality "collage" reference image
+        const referenceImages = {
+            'Wardrobe': 'https://i.pinimg.com/736x/7a/bb/03/7abb038310a0c5ff98bef35c2f0272e8.jpg',
+            'TV Unit': 'https://i.pinimg.com/736x/f8/af/54/f8af548beb0e4ddc48e9927120c804e4.jpg',
+            'Bed': 'https://i.pinimg.com/736x/74/f6/e5/74f6e5902cd846b1bcb1c41a1a1eab75.jpg',
+            'Sofa': 'https://i.pinimg.com/736x/42/56/06/425606a487e042fcc859b7c19de8dce9.jpg',
+            'Kitchen': 'https://i.pinimg.com/736x/bb/11/c3/bb11c301abf5975e4aa97ff441060888.jpg',
+            'Dressing': 'https://i.pinimg.com/736x/fa/3c/83/fa3c83f5fe13838206c5a5a81a39bdee.jpg',
+            'Windows': 'https://i.pinimg.com/1200x/75/2f/27/752f27e748c6652fd94bc931badc83d2.jpg',
+            'Temple': 'https://i.pinimg.com/736x/f7/d9/82/f7d9827b676e00d6ca66a8771db14a3f.jpg',
+            'Study Table': 'https://i.pinimg.com/1200x/1f/58/c4/1f58c467104a9089cc071ceb70193885.jpg',
+            'Safety Door': 'https://i.pinimg.com/1200x/11/20/fe/1120fe3b881167979c011786c49e45d8.jpg',
+            'Interior Painting': 'https://i.pinimg.com/736x/bd/74/6d/bd746ddf771b47152a434d21d2c278fc.jpg',
+            'Exterior Painting': 'https://i.pinimg.com/736x/ce/1d/ae/ce1dae9f625f1d3f3efad2f13e6d9b2c.jpg',
+            'PVC Ceiling': 'https://i.pinimg.com/736x/c2/96/d0/c296d0c4aca8f1d3f8cde70a0e564cc0.jpg',
+            'False Ceiling': 'https://i.pinimg.com/1200x/d3/9c/a9/d39ca998d998b7b6e096e620e848ef04.jpg'
+        };
+
+        // --- PASTE YOUR GOOGLE DRIVE LINKS HERE ---
+        const driveLinks = {
+            'Wardrobe': 'https://drive.google.com/drive/folders/1kFQ1fVtvuZaFKooTFpFXw6dApyf37KlF?usp=sharing',
+            'TV Unit': 'https://drive.google.com/drive/folders/1rRLdzntF49mhN1SWgiOpbLLqI9h1iYex?usp=sharing',
+            'Bed': 'https://drive.google.com/drive/folders/14eWCW_DxiMhDcnJJTMdVocmuhgabGmd8?usp=sharing',
+            'Sofa': 'https://drive.google.com/drive/folders/1A_JGi6Q1rvlY7ow8sgR_aYhcxxxOajek?usp=sharing',
+            'Kitchen': 'https://drive.google.com/drive/folders/1Oio87kMsrcCJcJCnNGxzMvkltMT0FLTn?usp=sharing',
+            'Dressing': 'https://drive.google.com/drive/folders/1gBXEdotF_HNAFPn08SZbVoNO_SbVtgy0?usp=sharing',
+            'Windows': 'https://drive.google.com/drive/folders/1a_BsI71HOKQYbhkjSuD7qai2fEFo_b_S?usp=sharing',
+            'Temple': 'https://drive.google.com/drive/folders/1vUmYHUYZgfegX_AxKupuhkS7wjHVAMDt?usp=sharing',
+            'Study Table': 'https://drive.google.com/drive/folders/1IGvXf4RyOStoYhz0D7cYpr4sUfRF5bNI?usp=sharing',
+            'Safety Door': 'https://drive.google.com/drive/folders/11m_yGnd08tmQJkl93qWvsGxJ0ppEi6Sf?usp=sharing',
+            'Interior Painting': 'https://drive.google.com/drive/folders/1loBcbZIfIXPIndJ3x_bu3rj8-WVMLXOZ?usp=sharing',
+            'Exterior Painting': 'https://drive.google.com/drive/folders/1jcUV6khiDzO9RCaGRFqbpDEjklBgms4r?usp=sharing',
+            'PVC Ceiling': 'https://drive.google.com/drive/folders/1uzqVkZFyHVh06T8h3LTfDEuEHbdwdQGB?usp=sharing',
+            'False Ceiling': 'https://drive.google.com/drive/folders/1pTsigfcGZBUX1FM-4ecmc9OtKMckNKb1?usp=sharing'
+        };
+
+        function showCategory(categoryId, btnElement) {
+            // Hide all subcategories and samples section
+            document.querySelectorAll('.subcategories').forEach(el => el.style.display = 'none');
+            document.getElementById('samples-section').style.display = 'none';
+
+            // Reset active states on main buttons & square buttons
+            document.querySelectorAll('.btn-category').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.square-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected category
+            document.getElementById(categoryId).style.display = 'block';
+            btnElement.classList.add('active');
+        }
+
+        function showSamples(itemName, btnElement) {
+            // Highlight the clicked square button
+            document.querySelectorAll('.square-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Show samples section
+            const samplesSection = document.getElementById('samples-section');
+            samplesSection.style.display = 'block';
+
+            // Update dynamic titles & descriptions
+            document.getElementById('dynamic-sample-title').innerHTML = `Showing designs for: <strong style="color:var(--accent-color);">${itemName}</strong>`;
+            document.getElementById('done-desc').innerText = `Click below to view the gallery of our completed ${itemName} projects.`;
+            document.getElementById('design-link-text').innerText = `Click here for more ${itemName} designs`;
+            document.getElementById('drive-link-text').innerText = `View our ${itemName} portfolio`;
+
+            // Fetch corresponding image from dictionary (or fallback)
+            let previewImageUrl = referenceImages[itemName] || "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80";
+
+            // --- DYNAMIC GOOGLE DRIVE URL & COVER IMAGE ---
+            let driveUrl = driveLinks[itemName] || "#";
+            document.getElementById('drive-link').href = driveUrl;
+            document.getElementById('drive-img-preview').innerHTML = `
+                <img src="${previewImageUrl}" alt="${itemName} Past Work Cover" style="filter: brightness(0.85);">
+            `;
+
+            // --- DYNAMIC GOOGLE IMAGE SEARCH URL & PREVIEW IMAGE ---
+            let searchQuery = "modern " + itemName.toLowerCase() + " designs";
+            let googleImagesUrl = "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(searchQuery);
+            document.getElementById('design-link').href = googleImagesUrl;
+            document.getElementById('design-img-preview').innerHTML = `
+                <img src="${previewImageUrl}" alt="${itemName} Reference Collage">
+            `;
+
+            // Smooth scroll to the samples section
+            samplesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+
+</body>
+</html>
